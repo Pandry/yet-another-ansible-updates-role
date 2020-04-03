@@ -33,12 +33,12 @@
 #Check if I can take variable from playbook
 - name: Rebooting if necessary
   reboot:
-  when: patchIncluded.skipped is not defined and needs_reboot is defined and needs_reboot|Bool
+  when: patchIncluded.skipped is not defined and needs_reboot is defined and needs_reboot|bool
 
 - name: Pausing after rebooting
   pause:
     seconds: "{{ server_post_reboot_delay }}"
-  #when: patchIncluded.skipped is not defined and needs_reboot is defined and needs_reboot|Bool is true and server_post_reboot_delay is defined and server_post_reboot_delay |int > 0
+  #when: patchIncluded.skipped is not defined and needs_reboot is defined and needs_reboot|bool is true and server_post_reboot_delay is defined and server_post_reboot_delay |int > 0
   when: server_post_reboot_delay|int > 0
 
 - name: Server skipped - OS not known
