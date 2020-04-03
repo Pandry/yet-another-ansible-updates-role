@@ -30,4 +30,4 @@
 - name: Pausing after rebooting
   pause:
     seconds: "{{ server_post_reboot_delay }}"
-  when: server_post_reboot_delay |Int > 0
+  when: server_post_reboot_delay |int > 0
