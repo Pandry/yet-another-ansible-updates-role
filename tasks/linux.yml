@@ -1,0 +1,48 @@
+---
+# tasks file for patching
+
+- name: Pausing before starting patcihg
+  pause:
+    seconds: "{{ package_manager_pre_delay }}"
+  when: package_manager_pre_delay|Int > 0
+
+
+# List of OS taken from:
+# https://github.com/ansible/ansible/blob/c61f141bbc97e0d17dffc7da5e560e8786613b6c/lib/ansible/module_utils/facts/system/distribution.py#L467
+# https://sourcegraph.com/github.com/ansible/ansible@c61f141bbc97e0d17dffc7da5e560e8786613b6c/-/blob/lib/ansible/module_utils/facts/system/distribution.py#L467
+
+#- name: added in 2.4, previously you used 'include'
+#  import_tasks: redhat7.yml
+#  when: ansible_facts['os_family']|lower == 'redhat' and ansible_facts['ansible_distribution_major_version']|int < 8
+
+- include_tasks: "{{ansible_facts['os_family']|lower}}.yml"
+  when: ansible_facts['ansible_distribution']|lower  in ['redhat', 'debian', 'suse', 'alpine', 'archlinux' ]
+  register: patchIncluded
+  # when: ansible_facts['ansible_distribution']|lower  in ['redhat', 'debian', 'suse', 'gentoo', 'alpine', 'archlinux' ]
+
+#ansible_distribution }}"
+#- debug:
+#    msg: "{{ hostvars[inventory_hostname].ansible_distribution_major_version
+
+- name: Pausing after the patcihg
+  pause:
+    seconds: "{{ package_manager_post_delay }}"
+  when: patchIncluded.skipped is not defined and package_manager_post_delay |Int > 0
+
+
+#Check if I can take variable from playbook
+- name: Rebooting if necessary
+  reboot:
+  when: patchIncluded.skipped is not defined and needs_reboot is defined and needs_reboot|Bool
+
+- name: Pausing after rebooting
+  pause:
+    seconds: "{{ server_post_reboot_delay }}"
+  #when: patchIncluded.skipped is not defined and needs_reboot is defined and needs_reboot|Bool is true and server_post_reboot_delay is defined and server_post_reboot_delay |Int > 0
+  when: server_post_reboot_delay|Int > 0
+
+- name: Server skipped - OS not known
+  debug:
+    msg: "The machine was skipped because the server OS was not recognised"
+  when: patchIncluded.skipped is defined 
+
