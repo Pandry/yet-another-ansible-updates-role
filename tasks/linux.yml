@@ -14,9 +14,8 @@
 #- name: added in 2.4, previously you used 'include'
 #  import_tasks: redhat7.yml
 #  when: ansible_facts['os_family']|lower == 'redhat' and ansible_facts['ansible_distribution_major_version']|int < 8
-
-- include_tasks: "{{ansible_facts['os_family']|lower}}.yml"
-  when: ansible_facts['ansible_distribution']|lower  in ['redhat', 'debian', 'suse', 'alpine', 'archlinux' ]
+- include_tasks: "{{ansible_os_family|lower}}.yml"
+  when: ansible_os_family|lower in ['redhat', 'debian' ]
   register: patchIncluded
   # when: ansible_facts['ansible_distribution']|lower  in ['redhat', 'debian', 'suse', 'gentoo', 'alpine', 'archlinux' ]
 
