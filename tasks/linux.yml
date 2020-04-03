@@ -32,7 +32,7 @@
 #Check if I can take variable from playbook
 - name: Rebooting if necessary
   reboot:
-    reboot_timeout: server_timeout_seconds_value|int | default(3600)
+    reboot_timeout: '{{server_timeout_seconds_value}}'
   when: patchIncluded.skipped is not defined and needs_reboot is defined and needs_reboot|bool
 
 - name: Pausing after rebooting
