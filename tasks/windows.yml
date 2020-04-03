@@ -22,7 +22,7 @@
   win_updates:
     reboot: yes
     server_selection: "{{windows_updates_source}}"
-    reboot_timeout: "{{ansible_server_timeout_seconds_value | default(3600)}}"
+    reboot_timeout: "{{server_timeout_seconds_value|int | default(3600)}}"
     state: installed
     category_names:
       - "{{windows_category_names | default(foundUpdates.updates | dict2items | map(attribute='value.categories') | list |  sum(start=['Upgrades', 'FeaturePacks']) | unique) }}"

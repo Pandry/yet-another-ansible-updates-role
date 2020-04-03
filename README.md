@@ -17,6 +17,9 @@ Role Variables
 | package_manager_needed_packages   | [] |  | [[yum/name](https://docs.ansible.com/ansible/latest/modules/yum_module.html#parameter-name)]<br/>[[apt/name](https://docs.ansible.com/ansible/latest/modules/apt_module.html#parameter-name)]   | Packages that needs to be installed on the server<br/>(Linux only) |
 | windows_updates_source | "default"     | default<br/>managed_server<br/>windows_update | [[win_updates/server_selection]([win_updates/category_names](https://docs.ansible.com/ansible/latest/modules/win_updates_module.html#parameter-category_names)]    | Server to use when searching and downloading the updates<br/>(Windows only)    |
 | windows_category_names | <undefined>   |  | [[win_updates/category_names](https://docs.ansible.com/ansible/latest/modules/win_updates_module.html#parameter-category_names)] | Windows udpate categories that needs to be installed.<br/>Defaults to any update found.<br/>(Windows only) |
+| server_timeout_seconds_value | 3600 | >=1 | [[win_updates/reboot_timeout](https://docs.ansible.com/ansible/latest/modules/win_updates_module.html#parameter-reboot_timeout)]<br/>[[reboot/reboot_timeout](https://docs.ansible.com/ansible/latest/modules/reboot_module.html#parameter-reboot_timeout)] | How much time to wait for the server to come back up in case of a reboot |
+
+
 
 
 Example Playbook

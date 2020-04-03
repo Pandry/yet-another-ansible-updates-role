@@ -4,6 +4,7 @@
 package_manager_pre_delay: 0
 package_manager_post_delay: 0
 server_post_reboot_delay: 0
+server_timeout_seconds_value: 3600
 
 package_manager_apt_do_autoremove: Yes
 server_reboot_allowed: Yes
