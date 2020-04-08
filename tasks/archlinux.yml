@@ -1,2 +1,3 @@
 ---
-- fail: msg="OS not implemented!"
+- name: ArchLinux OS not implemented
+  fail: msg="OS not implemented!"

@@ -10,8 +10,8 @@
   dpkg_selections:
     name: "{{ item }}"
     selection: hold
-  with_items: 
-  - "{{package_manager_excluded_packages}}"
+  with_items:
+  - "{{ package_manager_excluded_packages }}"
 
 # Then we make sure all the needed packages are installed
 - name: Ensuring required packages are installed

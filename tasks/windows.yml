@@ -2,30 +2,30 @@
 - name: Searching for updates
   win_updates:
     state: searched
-    server_selection: "{{windows_updates_source}}"
+    server_selection: "{{ windows_updates_source }}"
   register: foundUpdates
   retries: 4 # Windows can fail from time to time
   until: not foundUpdates.failed
   when: windows_category_names is not defined
 
-  
 - name: Showing the found updates
   debug:
     var: foundUpdates
 
 - name: Installing this categorries
   debug:
-    msg: "{{foundUpdates.updates | dict2items | map(attribute='value.categories') | list |  sum(start=['Upgrades', 'FeaturePacks']) | unique }}"
+    msg: "{{ foundUpdates.updates | dict2items | map(attribute='value.categories') | list |  sum(start=['Upgrades', 'FeaturePacks']) | unique }}"
   when: windows_category_names is not defined
 
 - name: Downloads Windows updates and installs them
   win_updates:
     reboot: yes
-    server_selection: "{{windows_updates_source}}"
-    reboot_timeout: '{{server_timeout_seconds_value}}'
+    server_selection: "{{ windows_updates_source }}"
+    reboot_timeout: '{{ server_timeout_seconds_value }}'
     state: installed
     category_names:
-      - "{{windows_category_names | default(foundUpdates.updates | dict2items | map(attribute='value.categories') | list |  sum(start=['Upgrades', 'FeaturePacks']) | unique) }}"
+      - "{{ windows_category_names | default(foundUpdates.updates | dict2items | \
+      map(attribute='value.categories') | list | sum(start=['Upgrades', 'FeaturePacks']) | unique) }}"
 
 - name: Pausing after rebooting
   pause:

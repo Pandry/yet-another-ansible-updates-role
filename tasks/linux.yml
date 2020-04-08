@@ -14,7 +14,7 @@
 #- name: added in 2.4, previously you used 'include'
 #  import_tasks: redhat7.yml
 #  when: ansible_facts['os_family']|lower == 'redhat' and ansible_facts['ansible_distribution_major_version']|int < 8
-- include_tasks: "{{ansible_os_family|lower}}.yml"
+- include_tasks: "{{ ansible_os_family|lower }}.yml"
   when: ansible_os_family|lower in ['redhat', 'debian' ]
   register: patchIncluded
   # when: ansible_facts['ansible_distribution']|lower  in ['redhat', 'debian', 'suse', 'gentoo', 'alpine', 'archlinux' ]
@@ -32,7 +32,7 @@
 #Check if I can take variable from playbook
 - name: Rebooting if necessary
   reboot:
-    reboot_timeout: '{{server_timeout_seconds_value}}'
+    reboot_timeout: '{{ server_timeout_seconds_value }}'
   when: patchIncluded.skipped is not defined and needs_reboot is defined and needs_reboot|bool
 
 - name: Pausing after rebooting
@@ -44,5 +44,5 @@
 - name: Server skipped - OS not known
   debug:
     msg: "The machine was skipped because the server OS was not recognised"
-  when: patchIncluded.skipped is defined 
+  when: patchIncluded.skipped is defined
 

@@ -26,17 +26,28 @@ galaxy_info:
   # To view available platforms and versions (or releases), visit:
   # https://galaxy.ansible.com/api/v1/platforms/
   #
-  # platforms:
-  # - name: Fedora
-  #   versions:
-  #   - all
-  #   - 25
-  # - name: SomePlatform
-  #   versions:
-  #   - all
-  #   - 1.0
-  #   - 7
-  #   - 99.99
+  platforms:
+  - name: Fedora
+    versions:
+    - all
+  - name: CentOS
+    versions:
+    - all
+  - name: RHEL
+    versions:
+    - all
+  - name: Debian
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
+  - name: Windows
+    versions:
+    - 10
+    - Server 2012
+    - Server 2016
+    - Server 2019
 
   galaxy_tags: []
     # List tags for your role here, one per line. A tag is a keyword that describes
@@ -49,4 +60,3 @@ galaxy_info:
 dependencies: []
   # List your role dependencies here, one per line. Be sure to remove the '[]' above,
   # if you add dependencies to this list.
-  
