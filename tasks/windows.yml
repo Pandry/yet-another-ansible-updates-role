@@ -24,8 +24,8 @@
     reboot_timeout: '{{ server_timeout_seconds_value }}'
     state: installed
     category_names:
-      - "{{ windows_category_names | default(foundUpdates.updates | dict2items | \
-      map(attribute='value.categories') | list | sum(start=['Upgrades', 'FeaturePacks']) | unique) }}"
+      - "{{ windows_category_names | default(foundUpdates.updates | dict2items | 
+          map(attribute='value.categories') | list | sum(start=['Upgrades', 'FeaturePacks']) | unique) }}"
 
 - name: Pausing after rebooting
   pause:

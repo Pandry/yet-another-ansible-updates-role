@@ -30,7 +30,7 @@
   when: ansible_facts['distribution_major_version']|int < 8
 
 - name: Check if reboot is required (probably due to a kernel update) # Tho Ubuntu likes to be rebooted anyway
-  shell: set -o pipefail && LAST_KERNEL=$(rpm -q --last kernel | awk 'NR==1{sub(/kernel-/,""); print $1}'); \
+  shell: set -o pipefail && LAST_KERNEL=$(rpm -q --last kernel | awk 'NR==1{sub(/kernel-/,""); print $1}');
             CURRENT_KERNEL=$(uname -r); if [ $LAST_KERNEL != $CURRENT_KERNEL ]; then echo 'reboot'; else echo 'no'; fi
   changed_when: "need_reboot_query.stdout == 'reboot'"
   register: need_reboot_query
