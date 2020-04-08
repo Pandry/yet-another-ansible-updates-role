@@ -1,10 +1,10 @@
 ---
-- name: Choosing the right OS
+- name: Choosing the right OS (Linux Distro)
   import_tasks: linux.yml
   # Linux OSs do not have the ansible_env.OS defined (it looks like they don't have ansible_env at all)
   when: ansible_env.OS is not defined or 'windows' not in ansible_env.OS|lower 
 
-- name: Choosing the right OS
+- name: Choosing the right OS (Windows)
   import_tasks: windows.yml
   # Should be Windows_NT
   when: ansible_env.OS is defined and 'windows' is in ansible_env.OS|lower 
