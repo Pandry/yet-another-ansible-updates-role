@@ -7,4 +7,4 @@
 - name: Choosing the right OS (Windows)
   import_tasks: windows.yml
   # Should be Windows_NT
-  when: ansible_env.OS is defined and 'windows' is in ansible_env.OS|lower
+  when: ansible_env.OS is defined and 'windows' in ansible_env.OS|lower
