@@ -30,7 +30,8 @@ Here you can find an example playbook to test the role
 - name: patching
   max_fail_percentage: 0
   hosts: all
-  become: yes
+  # On Windows the become can result in issues
+  become: "{{ not ansible_env.OS is defined and 'windows' in ansible_env.OS|lower }}"
   roles:
   - patching
 ```
