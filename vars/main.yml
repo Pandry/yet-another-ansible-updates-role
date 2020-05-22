@@ -14,3 +14,5 @@ package_manager_needed_packages: []
 
 windows_updates_source: default
 #windows_category_names: Null
+
+force_reboot: false

@@ -19,13 +19,18 @@
 
 - name: Downloads Windows updates and installs them
   win_updates:
-    reboot: yes
+    reboot: "{{server_reboot_allowed}}"
     server_selection: "{{ windows_updates_source }}"
     reboot_timeout: '{{ server_timeout_seconds_value }}'
     state: installed
     category_names:
       - "{{ windows_category_names | default(foundUpdates.updates | dict2items | 
           map(attribute='value.categories') | list | sum(start=['Upgrades', 'FeaturePacks']) | unique) }}"
+  register: winUpdateResult
+
+- name: Force the reboot of the server (if not restarted during the update installation)
+  reboot:
+  when: force_reboot and winUpdateResult and foundUpdates.reboot_required is defined and not foundUpdates.reboot_required
 
 - name: Pausing after rebooting
   pause:

@@ -9,6 +9,7 @@ Role Variables
 | Variable Name | Default value | Possible values   | Documentation reference  | Description  |
 | ------------- | ------------- | ----------------- | ------------------------ | ------------ |
 | package_manager_pre_delay   | 0  | >=1   || How many secods to wait before installing the packages/updates<br/>(Linux only)|
+| force_reboot   | false | true/false   || If the server NEEDS to be rebooted (will reboot the server anyway)|
 | package_manager_post_delay  | 0  | >=1   || How many secods to wait after the installation of the packages/updates<br/>(Linux only)   |
 | server_post_reboot_delay    | 0  | >=1   || How many seconds to wait after the server is back up    |
 | package_manager_apt_do_autoremove | No | Yes<br/>No  | [[apt/autoremove](https://docs.ansible.com/ansible/latest/modules/apt_module.html#parameter-autoremove)]   | Autoremove the unneeded packages (a version of the kernel is kept anyway)<br/>(Debian-based distros only)  |
