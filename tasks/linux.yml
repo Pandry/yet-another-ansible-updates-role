@@ -33,7 +33,7 @@
 - name: Rebooting if necessary
   reboot:
     reboot_timeout: '{{ server_timeout_seconds_value }}'
-  when: force_reboot or patchIncluded.skipped is not defined and needs_reboot is defined and needs_reboot|bool
+  when: server_reboot_allowed and (force_reboot or patchIncluded.skipped is not defined and needs_reboot is defined and needs_reboot|bool)
 
 - name: Pausing after rebooting
   pause:

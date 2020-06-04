@@ -30,7 +30,7 @@
 
 - name: Force the reboot of the server (if not restarted during the update installation)
   reboot:
-  when: force_reboot and winUpdateResult and foundUpdates.reboot_required is defined and not foundUpdates.reboot_required
+  when: server_reboot_allowed and force_reboot and winUpdateResult and foundUpdates.reboot_required is defined and not foundUpdates.reboot_required
 
 - name: Pausing after rebooting
   pause:
