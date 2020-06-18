@@ -26,6 +26,7 @@
     category_names:
       - "{{ windows_category_names | default(foundUpdates.updates | dict2items | 
           map(attribute='value.categories') | list | sum(start=['Upgrades', 'FeaturePacks']) | unique) }}"
+    blacklist: package_manager_excluded_packages
   register: winUpdateResult
 
 - name: Force the reboot of the server (if not restarted during the update installation)
