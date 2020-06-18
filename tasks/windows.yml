@@ -3,6 +3,7 @@
   win_updates:
     state: searched
     server_selection: "{{ windows_updates_source }}"
+    blacklist: package_manager_excluded_packages
   register: foundUpdates
   retries: 4 # Windows can fail from time to time
   until: not foundUpdates.failed
