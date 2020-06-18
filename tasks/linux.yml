@@ -7,6 +7,26 @@
   when: package_manager_pre_delay|int > 0
 
 
+- name: Checking for RAM usage - force gathering facts
+  when: ram_test_enable
+  setup:
+    gather_subset: 
+      - '!all'
+      - '!min'
+    filter: "ansible_memory_mb"
+
+- name: Making sure there is enough free RAM - failing 
+  when: ram_test_enable and (ram_test_noreboot or not server_reboot_allowed)
+  assert:
+    that:
+      - ansible_memtotal_mb >= 1000
+      - ansible_memory_mb.real.total - ansible_memory_mb.real.used > ram_test_min_free_mb|int
+
+- name: Making sure there is enough free RAM - rebooting
+  when: ram_test_enable and not ram_test_noreboot and 
+    server_reboot_allowed and (ansible_memory_mb.real.total - ansible_memory_mb.real.used < ram_test_min_free_mb|int)
+  reboot:
+
 # List of OS taken from:
 # https://github.com/ansible/ansible/blob/c61f141bbc97e0d17dffc7da5e560e8786613b6c/lib/ansible/module_utils/facts/system/distribution.py#L467
 # https://sourcegraph.com/github.com/ansible/ansible@c61f141bbc97e0d17dffc7da5e560e8786613b6c/-/blob/lib/ansible/module_utils/facts/system/distribution.py#L467

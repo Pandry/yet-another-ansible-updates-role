@@ -19,6 +19,9 @@ Role Variables
 | windows_updates_source | "default"     | default<br/>managed_server<br/>windows_update | [[win_updates/server_selection]([win_updates/category_names](https://docs.ansible.com/ansible/latest/modules/win_updates_module.html#parameter-category_names)]    | Server to use when searching and downloading the updates<br/>(Windows only)    |
 | windows_category_names | <undefined>   |  | [[win_updates/category_names](https://docs.ansible.com/ansible/latest/modules/win_updates_module.html#parameter-category_names)] | Windows udpate categories that needs to be installed.<br/>Defaults to any update found.<br/>(Windows only) |
 | server_timeout_seconds_value | 3600 | >=1 | [[win_updates/reboot_timeout](https://docs.ansible.com/ansible/latest/modules/win_updates_module.html#parameter-reboot_timeout)]<br/>[[reboot/reboot_timeout](https://docs.ansible.com/ansible/latest/modules/reboot_module.html#parameter-reboot_timeout)] | How much time to wait for the server to come back up in case of a reboot |
+| ram_test_enable              | true  | True<br/>False | | Weather to enable the check to make sure there is enough free RAM             |
+| ram_test_noreboot            | false | True<br/>False | | If there is not enough RAM (and value is true), DO NOT reboot the server but rather fail the task |
+| ram_test_min_free_mb         | 400   | >= 1           | | The needed MBs of RAM to check for (if there is not enough RAM, the server will be rebooted) |
 
 
 
