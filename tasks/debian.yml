@@ -8,7 +8,7 @@
   retries: 5 # Looks like APT Cache can fail from time to time
   #until: aptcache.changed or aptcache.msg != "Failed to update apt cache: "
   delay: 2
-  until:  aptcacheresult | succeeded
+  until:  aptcacheresult is succeeded
 
 # Since we cannot exclude packages from the updating procedure, we need to make sure they're marked as holded (marks packages ineligible for automatic updates)
 - name: Marking packages as ineligible for automatic updates
