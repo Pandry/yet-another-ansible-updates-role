@@ -15,7 +15,7 @@
 
 - name: Installing this categorries
   debug:
-    msg: "{{ foundUpdates.updates | dict2items | map(attribute='value.categories') | list |  sum(start=['Upgrades', 'FeaturePacks']) | unique }}"
+    msg: "{{ foundUpdates.updates | dict2items | map(attribute='value.categories') | list |  sum(start=startingCategoryUpdates) | unique }}"
   when: windows_category_names is not defined
 
 - name: Downloads Windows updates and installs them
@@ -26,7 +26,7 @@
     state: installed
     category_names:
       - "{{ windows_category_names | default(foundUpdates.updates | dict2items | 
-          map(attribute='value.categories') | list | sum(start=['Upgrades', 'FeaturePacks']) | unique) }}"
+          map(attribute='value.categories') | list | sum(start=startingCategoryUpdates) | unique) }}"
     blacklist: package_manager_excluded_packages
   register: winUpdateResult
 

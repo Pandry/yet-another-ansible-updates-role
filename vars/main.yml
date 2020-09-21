@@ -20,3 +20,5 @@ force_reboot: false
 ram_test_enable: true
 ram_test_noreboot: false # If true the server cannot reboot to free RAM 
 ram_test_min_free_mb: 400
+
+startingCategoryUpdates: ['Upgrades', 'FeaturePacks']
